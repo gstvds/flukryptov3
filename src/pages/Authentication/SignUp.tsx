@@ -4,20 +4,28 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 
+import Header from '~/components/Header';
+
 const SignUp: React.FC = () => {
   const navigation = useNavigation();
 
   return (
-    <SignUpContainer>
-      <Text>Login Screen</Text>
-      <SignUpButton
-        onPress={() => {
-          navigation.navigate('Login')
-        }}
-      >
-        <Text>Navigate to Login</Text>
-      </SignUpButton>
-    </SignUpContainer>
+    <>
+      <Header
+      onPress={() => navigation.goBack()}
+      title='cadastrar'
+      />
+      <SignUpContainer>
+        <Text>Login Screen</Text>
+        <SignUpButton
+          onPress={() => {
+            navigation.navigate('Login');
+          }}
+        >
+          <Text>Navigate to Login</Text>
+        </SignUpButton>
+      </SignUpContainer>
+    </>
   );
 };
 
@@ -35,6 +43,6 @@ const SignUpButton = styled(TouchableOpacity)`
   align-items: center;
   margin-top: 15px;
   border-radius: 18px;
-`
+`;
 
 export default SignUp;

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import WelcomeScreen from './src/pages/Authentication/Welcome';
 import LoginScreen from './src/pages/Authentication/Login';
 import SignUpScreen from './src/pages/Authentication/SignUp';
 
@@ -10,6 +11,10 @@ const App: FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false}}>
+        <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        />
         <Stack.Screen
         name="Login"
         component={LoginScreen}

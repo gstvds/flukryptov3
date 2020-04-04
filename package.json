@@ -13,12 +13,14 @@
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/native": "^5.1.4",
     "@react-navigation/stack": "^5.2.9",
+    "@types/react-native-vector-icons": "^6.4.5",
     "react": "16.11.0",
     "react-native": "0.62.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
+    "react-native-vector-icons": "^6.6.0",
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "babel-jest": "^24.9.0",
+    "babel-plugin-root-import": "^6.5.0",
     "babel-plugin-styled-components": "^1.10.7",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
