@@ -15,27 +15,33 @@ import { Coin } from 'core/interfaces';
 const Home = () => {
   const navigation = useNavigation();
 
+  const [page, setPage] = useState(0);
   const [storeData, setStoreData] = useState([]);
-  const [allNames, setAllNames] = useState();
+  const [allNames, setAllNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [subscribed, setSubscribed] = useState(true);
-  let names: any = [];
+  const [subscribed, setSubscribed] = useState(false);
+  let data: Array<object> = [];
+  const fetchData = async () => {
+    console.log(page);
 
-  const makeRequest = useCallback(async () => {
-    const response = await core.routes.getData();
-    setStoreData(response.data.Data);
-  }, []);
-  
-  useEffect(() => {
     setIsLoading(true);
-    makeRequest();
+
+    const response = await core.routes.getData(page);
+
+    setPage(page + 1);
+    // @ts-ignore
+    setStoreData(response.data.Data);
     setIsLoading(false);
-  }, []);
-  
+  };
+
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    data = [];
     storeData.forEach((coin: Coin) => {
-      // @ts-ignore
-      names.push({
+      data.push({
         fullName: coin.CoinInfo.FullName,
         name: coin.CoinInfo.Name,
         price: coin.DISPLAY.USD.PRICE,
@@ -43,60 +49,67 @@ const Home = () => {
         volume: coin.DISPLAY.USD.TOTALVOLUME24HTO,
       });
     });
-    setAllNames(names);
+    // @ts-ignore
+    setAllNames([...allNames, ...data]);
   }, [storeData]);
 
   return (
     <>
-    <View style={{ backgroundColor: colors.light_background }}>
-      <Header
-        onPress={() => {
-          Alert.alert(
-            'Fazer Logout?',
-            'Você irá sair da sua conta no aplicativo',
-            [
-              {
-                text: 'Cancel',
-                onPress: () => { },
-                style: 'cancel',
-              },
-              { text: 'OK', onPress: () => navigation.navigate('Welcome') },
-            ],
-            { cancelable: false },
-          );
-        }}
-        logout
-      />
-    </View>
-    <TitleContainer>
-      <ScreenTitle>
-        top tier volume
-      </ScreenTitle>
-    </TitleContainer>
-    <MainContainer>
-      {isLoading && (
-        <ActivityIndicator color={colors.green} size='small'/>
-      )}
-      {!isLoading &&  (
-      <FlatList
-        // @ts-ignore
-        keyExtractor={(name) => name.name}
-        data={allNames}
-        renderItem={({ item }) => (
-          <CryptoView>
-            <CryptoCard
-              coinVolume={item.volume}
-              coinValue={item.price}
-              coinDayChange={item.percentage}
-              cryptoName={item.name}
-              iconName={subscribed ? 'ios-star' : 'ios-star-outline'}
-              onPress={() => setSubscribed(!subscribed)}
-            />
-          </CryptoView>
+      <View style={{ backgroundColor: colors.light_background }}>
+        <Header
+          onPress={() => {
+            Alert.alert(
+              'Fazer Logout?',
+              'Você irá sair da sua conta no aplicativo',
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => {},
+                  style: 'cancel',
+                },
+                { text: 'OK', onPress: () => navigation.navigate('Welcome') },
+              ],
+              { cancelable: false },
+            );
+          }}
+          logout
+        />
+      </View>
+      <TitleContainer>
+        <ScreenTitle>top tier volume</ScreenTitle>
+      </TitleContainer>
+      <MainContainer>
+        {isLoading && page === 0 && (
+          <Loading>
+            <ActivityIndicator color={colors.green} size="small" />
+          </Loading>
         )}
-      />
-      )}
-    </MainContainer>
+        <FlatList
+          // @ts-ignore
+          keyExtractor={(item) => `${item.name}${item.fullName}`}
+          showsVerticalScrollIndicator={false}
+          data={allNames}
+          onEndReached={fetchData}
+          onEndReachedThreshold={0.2}
+          renderItem={({ item }) => (
+            <CryptoView>
+              <CryptoCard
+                // @ts-ignore
+                coinVolume={item.volume}
+                // @ts-ignore
+                coinValue={item.price}
+                // @ts-ignore
+                coinDayChange={item.percentage}
+                // @ts-ignore
+                cryptoName={item.name}
+                // @ts-ignore
+                iconName={subscribed ? 'ios-star' : 'ios-star-outline'}
+                onPress={() => {}}
+              />
+            </CryptoView>
+          )}
+        />
+      </MainContainer>
     </>
   );
 };
@@ -108,11 +121,11 @@ const MainContainer = styled.View`
   align-items: center;
 `;
 
-// const Loading = styled.ActivityIndicator`
-//   color: ${colors.green};
-//   justify-content: center;
-//   align-items: center;
-// `;
+const Loading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
 
 const ScreenTitle = styled.Text`
   font-family: ${fonts.quicksand_bold};
@@ -122,7 +135,7 @@ const ScreenTitle = styled.Text`
 
 const TitleContainer = styled.View`
   background-color: ${colors.light_background};
-  height: ${(metrics.screen_width / 5) - metrics.padding}px;
+  height: ${metrics.screen_width / 5 - metrics.padding}px;
   padding-horizontal: ${metrics.double_padding}px;
   padding-top: ${metrics.double_padding}px;
 `;

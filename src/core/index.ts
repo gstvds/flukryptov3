@@ -3,16 +3,18 @@ import * as routes from './routes';
 // @ts-ignore
 import { APIKEY, baseURL } from 'react-native-dotenv';
 
-export const API = App.API({
+export const api = App.API({
   baseURL: baseURL,
-  timeout: 10000,
   options: {
-    headers: { authorization: `Apikey ${APIKEY}`},
+    headers: {
+      authorization: `Apikey ${APIKEY}`
+    },
+    method: 'get',
   },
 });
 
 
 export default {
-  API,
+  api,
   routes: { ...routes },
 };

@@ -55,7 +55,7 @@ const CryptoCard = (props: CryptoProps) => {
 
 const MainContainer = styled.View`
   width: 100%;
-  padding-horizontal: ${metrics.double_padding}px;
+  padding-horizontal: ${metrics.half_padding}px;
   padding-top: ${metrics.half_padding}px;
   padding-bottom: ${metrics.padding}px;
   background-color: ${colors.background};
@@ -91,6 +91,7 @@ const BottomContainer = styled.View`
 
 const Wrapper = styled.View`
   margin-top: ${metrics.half_padding}px;
+  padding-horizontal: ${metrics.half_padding}px;
 `;
 
 const CoinInfoTitle = styled.Text`
