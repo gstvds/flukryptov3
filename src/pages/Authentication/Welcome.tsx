@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image } from 'react-native';
 import styled from 'styled-components';
 
@@ -11,6 +11,16 @@ import { metrics } from '~/helpers';
 
 const Welcome = () => {
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fakeLogin = () => {
+    setIsLoading(true);
+    setTimeout(()  => {
+      navigation.navigate('Home')
+      setIsLoading(false);
+    }, 2000);
+  }
+
   return (
     <MainContainer>
       <LogoContainer>
@@ -18,9 +28,11 @@ const Welcome = () => {
      </LogoContainer>
       <View style={{ marginTop: metrics.padding }} />
       <MainButton
-        onPress={() => navigation.navigate('Login')}
-        disabled={false}
-        status={false}
+        onPress={() => {
+          fakeLogin();
+        }}
+        disabled={isLoading}
+        status={isLoading}
         title="login"
       />
       <MainButton

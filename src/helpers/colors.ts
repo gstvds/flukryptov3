@@ -8,6 +8,7 @@ const colors: {
   background: string;
   light_background: string;
   input_background: string;
+  white: string;
 } = {
   fluke_green: "#0EF500",
   green: "#75FE66",
@@ -18,6 +19,7 @@ const colors: {
   light_dark_grey: "#D7D7D7",
   input_background: "#E8E8E8",
   red: "#FF7B7B", 
+  white: "#FFFFFF",
 }
 
 export default colors;

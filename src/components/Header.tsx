@@ -7,15 +7,16 @@ import styled from 'styled-components/native';
 import header from '~/assets/header.png';
 import { metrics, fonts, colors } from '~/helpers';
 
-interface HeaderProps {
-  children?: React.ReactNode;
-  main?: boolean;
-  title?: string;
-  logout?: boolean;
-  disabled?: boolean;
-  onPress: any;
-}
+import { HeaderProps } from 'core/interfaces';
 
+/**
+ * 
+ * @param props React Native properties
+ * @param logout Boolean that determinates if the header have logout button or not
+ * @param title String that determinates header title
+ * @param disabled Boolean that determinates if the button should be disabled or not
+ * @param onPress Void that determinates onPress action
+ */
 const Header = (props: HeaderProps) => {
   if (props.logout) {
     return (
@@ -44,7 +45,7 @@ const Header = (props: HeaderProps) => {
   );
 };
 
-const HeaderContainer = styled.View`
+const HeaderContainer = styled.View<any>`
   align-items: center;
   justify-content: space-between;
   height: 60px;
@@ -53,7 +54,7 @@ const HeaderContainer = styled.View`
   margin-top: 10px;
 `;
 
-const TitleContainer = styled.View`
+const TitleContainer = styled.View<any>`
   flex: 1;
   justify-content: center;
   align-items: center;
