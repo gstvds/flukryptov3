@@ -49,7 +49,7 @@ const HeaderContainer = styled.View`
   justify-content: space-between;
   height: 60px;
   flex-direction: row;
-  margin-horizontal: ${metrics.padding};
+  margin-horizontal: ${metrics.padding}px;
   margin-top: 10px;
 `;
 
@@ -57,7 +57,7 @@ const TitleContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  margin-right: ${(metrics.half_padding) + 26};
+  margin-right: ${(metrics.half_padding) + 26}px;
 `;
 
 const Title = styled.Text<any>`
@@ -68,7 +68,7 @@ const Title = styled.Text<any>`
 `;
 
 const BackButton = styled.TouchableOpacity`
-  margin-horizontal: ${metrics.half_padding};
+  margin-horizontal: ${metrics.half_padding}px;
 `;
 
 const LogoutButton = styled.TouchableOpacity``;

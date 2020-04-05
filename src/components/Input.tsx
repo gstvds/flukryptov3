@@ -40,12 +40,12 @@ const FormContainer = styled.View`
 `;
 
 const InputLabel = styled.Text<any>`
-  width: ${metrics.screen_width - metrics.double_padding * 5};
+  width: ${metrics.screen_width - metrics.double_padding * 5}px;
   font-size: 20px;
   font-family: ${fonts.quicksand};
   color: ${props => (props.status ? colors.red : colors.light_grey)};
   margin-vertical: 3px;
-  margin-horizontal: ${metrics.padding};
+  margin-horizontal: ${metrics.padding}px;
 `;
 
 const CustomInput = styled.TextInput<any>`
@@ -56,15 +56,15 @@ const CustomInput = styled.TextInput<any>`
   border-color: ${colors.light_grey};
   padding-horizontal: 2px;
   padding-vertical: 2px;
-  width: ${metrics.screen_width - metrics.double_padding * 5};
-  margin-horizontal: ${metrics.padding};
-  margin-bottom: ${metrics.half_padding};
+  width: ${metrics.screen_width - metrics.double_padding * 5}px;
+  margin-horizontal: ${metrics.padding}px;
+  margin-bottom: ${metrics.half_padding}px;
 `;
 
 const ErrorText = styled.Text`
   font-family: ${fonts.quicksand_bold};
   color: ${colors.red};
-  margin-horizontal: ${metrics.padding};
+  margin-horizontal: ${metrics.padding}px;
   align-self: flex-start;
   font-size: 14px;
 `;

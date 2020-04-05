@@ -8,6 +8,7 @@ import Header from '~/components/Header';
 import Input from '~/components/Input';
 import { colors, metrics, validators } from '~/helpers';
 import MainButton from '~/components/MainButton';
+import Request from '~/core/pulse';
 
 const Login: React.FC = () => {
   const [name, setName] = useState('');
@@ -76,7 +77,7 @@ const Login: React.FC = () => {
           onPress={() => {
             cleanErrors();
             if (checkEntries()) {
-              console.log('Deu certo');
+              navigation.navigate('Home', { isSignedIn: true });
             }
           }}
           title='entrar'
@@ -96,7 +97,7 @@ const MainContainer = styled.View`
 `;
 
 const LoginContainer = styled.View`
-  margin-top: ${metrics.double_padding};
+  margin-top: ${metrics.double_padding}px;
   background-color: ${colors.input_background};
   border-radius: 20px;
 `;

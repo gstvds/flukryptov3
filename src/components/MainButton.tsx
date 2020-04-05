@@ -60,15 +60,15 @@ const MainButton = (props: ButtonProps) => {
 }
 
 const FullButtonView = styled.View<any>`
-  border-radius: 100;
+  border-radius: 100px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  padding-horizontal: ${metrics.padding};
-  padding-vertical: ${metrics.padding + 2};
-  margin-vertical: ${metrics.double_padding};
+  padding-horizontal: ${metrics.padding}px;
+  padding-vertical: ${metrics.padding + 2}px;
+  margin-vertical: ${metrics.double_padding}px;
   background-color: ${(props) => props.color || colors.green };
-  width: ${metrics.screen_width / 1.8};
+  width: ${metrics.screen_width / 1.8}px;
 `
 
 const Loading = styled(View)<any>`
@@ -76,9 +76,9 @@ const Loading = styled(View)<any>`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  padding-horizontal: ${metrics.double_padding};
-  padding-vertical: ${metrics.padding + 2};
-  margin-vertical: ${metrics.half_padding};
+  padding-horizontal: ${metrics.double_padding}px;
+  padding-vertical: ${metrics.padding + 2}px;
+  margin-vertical: ${metrics.half_padding}px;
   background-color: ${props => props.color || colors.green};
 `
 
@@ -88,9 +88,9 @@ const OutlineButtonView = styled(View)<any>`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  padding-horizontal: ${metrics.double_padding};
-  padding-vertical: ${metrics.padding + 2};
-  margin-vertical: ${metrics.half_padding};
+  padding-horizontal: ${metrics.double_padding}px;
+  padding-vertical: ${metrics.padding + 2}px;
+  margin-vertical: ${metrics.half_padding}px;
   border-color: ${props => props.color || colors.black};
   width: ${metrics.screen_width / 1.8}px;
 `
