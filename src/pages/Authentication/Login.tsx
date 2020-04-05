@@ -6,18 +6,42 @@ import styled from 'styled-components/native';
 
 import Header from '~/components/Header';
 import Input from '~/components/Input';
-import { colors, metrics } from '~/helpers';
+import { colors, metrics, validators } from '~/helpers';
 import MainButton from '~/components/MainButton';
 
 const Login: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [nameFocused, setNameFocused] = useState(false);
-  const [emailFocused, setEmailFocused] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
-  const [repeatPasswordFocused, setRepeatPasswordFocusedFocused] = useState(false);
+  const [passwordError, setPasswordError] = useState({ status: false, error: '' });
+  const [emailError, setEmailError] = useState({ status: false, error: '' });
+  const digitsOnly = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?][a-zA-Z]+/;
   const navigation = useNavigation();
+
+  const cleanErrors = () => {
+    setEmailError({ status: false, error: ''});
+    setPasswordError({ status: false, error: ''});
+  }
+
+  const checkEntries = () => {
+    if (email === '') {
+      setEmailError({ status: true, error: 'O email não pode estar vazio' });
+      return false;
+    }
+    if (password === '') {
+      setPasswordError({ status: true, error: 'A senha não pode estar vazia' });
+      return false;
+    }
+    if (password.length < 4) {
+      setPasswordError({ status: true, error: 'A senha deve conter no mínimo 4 dígitos' });
+      return false;
+    }
+    if (!validators.emailValidator(email)) {
+      setEmailError({ status: true, error: 'Email inválido' });
+      return false;
+    }
+    return true;
+  }
 
   return (
     <>
@@ -27,31 +51,34 @@ const Login: React.FC = () => {
           <View style={{ margin: metrics.padding }}>
           <Input
             value={email}
-            onBlur={() => setEmailFocused(false)}
-            onFocus={() => setEmailFocused(true)}
-            isFocused={emailFocused}
             onChangeText={(text: string) => setEmail(text)}
             label="email"
-            status={false}
-            error={''}
+            status={emailError.status}
+            error={emailError.error}
             keyboard='email-address'
           />
           <Input
             value={password}
-            onBlur={() => setPasswordFocused(false)}
-            onFocus={() => setPasswordFocused(true)}
-            isFocused={passwordFocused}
-            onChangeText={(text: string) => setPassword(text)}
+            onChangeText={(text: string) => {
+              if (!digitsOnly.test(text) && text.length <= 10) {
+                setPassword(text)
+              }
+            }}
             label="password"
-            status={false}
-            error={''}
+            status={passwordError.status}
+            error={passwordError.error}
             keyboard='number-pad'
             secureTextEntry
           />
           </View>
         </LoginContainer>
         <MainButton
-          onPress={() => {}}
+          onPress={() => {
+            cleanErrors();
+            if (checkEntries()) {
+              console.log('Deu certo');
+            }
+          }}
           title='entrar'
           status={false}
           disabled={false}
@@ -62,7 +89,7 @@ const Login: React.FC = () => {
 };
 
 const MainContainer = styled.View`
-  color: #FCFCFC;
+  color: ${colors.light_background};
   flex: 1;
   justify-content: space-around;
   align-items: center;
@@ -70,19 +97,8 @@ const MainContainer = styled.View`
 
 const LoginContainer = styled.View`
   margin-top: ${metrics.double_padding};
-  /* background-color: ${colors.background}; */
-  background-color: #e8e8e8;
+  background-color: ${colors.input_background};
   border-radius: 20px;
-`;
-
-const LoginButton = styled.TouchableOpacity`
-  background-color: #0ef500;
-  height: 25px;
-  width: 150px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15px;
-  border-radius: 18px;
 `;
 
 export default Login;
