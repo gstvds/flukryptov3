@@ -1,0 +1,14 @@
+{
+  "name": "pulse-framework",
+  "version": "3.0.0",
+  "description": "Global state and logic framework for reactive Javascript applications.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "author": "Jamie Pine",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pulse-framework/pulse"
+  }
+}
