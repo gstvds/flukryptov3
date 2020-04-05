@@ -45,7 +45,7 @@ const Home = () => {
         fullName: coin.CoinInfo.FullName,
         name: coin.CoinInfo.Name,
         price: coin.DISPLAY.USD.PRICE,
-        percentage: coin.DISPLAY.USD.CHANGEPCTDAY,
+        percentage: coin.DISPLAY.USD.CHANGEPCT24HOUR,
         volume: coin.DISPLAY.USD.TOTALVOLUME24HTO,
       });
     });
@@ -94,6 +94,8 @@ const Home = () => {
           renderItem={({ item }) => (
             <CryptoView>
               <CryptoCard
+                // @ts-ignore
+                down={Number(item.percentage) < 0 ? true : false}
                 // @ts-ignore
                 coinVolume={item.volume}
                 // @ts-ignore

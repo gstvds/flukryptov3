@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import 'intl'
 
 import styled from 'styled-components/native';
 import { colors, fonts, metrics } from '~/helpers';
@@ -7,6 +8,11 @@ import { colors, fonts, metrics } from '~/helpers';
 import { CryptoProps } from 'core/interfaces';
 
 const CryptoCard = (props: CryptoProps) => {
+
+  useEffect(() => {
+    console.log(Number(props.coinDayChange) < 0)
+  }, [])
+
   return (
     <MainContainer>
       <TopContainer>
@@ -20,11 +26,11 @@ const CryptoCard = (props: CryptoProps) => {
       <BottomContainer>
         <Wrapper>
         <CoinInfoTitle>
-          value (USD)
+          valor (USD)
         </CoinInfoTitle>
         <CoinInfoContainer>
           <CoinInfoValue>
-            {props.coinValue}
+          {props.coinValue}
           </CoinInfoValue>
         </CoinInfoContainer>
         </Wrapper>
@@ -42,7 +48,7 @@ const CryptoCard = (props: CryptoProps) => {
         <CoinInfoTitle>
           variação/dia
         </CoinInfoTitle>
-        <CoinInfoContainer percentage>
+        <CoinInfoContainer percentage down={props.down}>
           <CoinInfoValue>
             {props.coinDayChange} %
           </CoinInfoValue>
@@ -92,6 +98,8 @@ const BottomContainer = styled.View`
 const Wrapper = styled.View`
   margin-top: ${metrics.half_padding}px;
   padding-horizontal: ${metrics.half_padding}px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CoinInfoTitle = styled.Text`
@@ -103,7 +111,7 @@ const CoinInfoTitle = styled.Text`
 
 const CoinInfoContainer = styled.View<any>`
   margin-top: ${metrics.half_padding - 5}px;
-  background-color: ${props => props.percentage ? colors.red : colors.light_dark_grey};
+  background-color: ${props => props.percentage === true ? (props.down ? colors.red : colors.green) : colors.light_dark_grey};
   border-radius: 22px;
   width: 90px;
   height: 30px;

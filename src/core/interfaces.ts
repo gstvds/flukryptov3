@@ -6,7 +6,7 @@ export interface Coin {
   DISPLAY: {
     USD: {
       PRICE: string;
-      CHANGEPCTDAY: string;
+      CHANGEPCT24HOUR: string;
       TOTALVOLUME24HTO: string;
     };
   };
@@ -30,4 +30,5 @@ export interface CryptoProps {
   coinValue: string;
   coinVolume: string;
   coinDayChange: string;
+  down?: true;
 }
