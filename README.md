@@ -2,9 +2,6 @@
 <img alt='Logo' src='https://github.com/gstvds/flukryptov3/blob/master/src/assets/header%403x.png'>
 </p>
 
-<h1 align='center'>Flukrypto</h1>
-
-
 <h2>A brand new version of <a href='https://github.com/gstvds/flukryptov2'>flukrypto</a>, with big changes!
 </h2>
 
