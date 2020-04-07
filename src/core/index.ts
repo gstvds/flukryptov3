@@ -1,5 +1,6 @@
 import { App } from './pulse';
 import * as routes from './routes';
+import * as collections from './collections';
 // @ts-ignore
 import { APIKEY, baseURL } from 'react-native-dotenv';
 
@@ -17,4 +18,5 @@ export const api = App.API({
 export default {
   api,
   routes: { ...routes },
+  collections: { ...collections },
 };

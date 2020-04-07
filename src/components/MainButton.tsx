@@ -1,20 +1,10 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 
+import { ButtonProps } from '~/core/interfaces';
+
 import { metrics, fonts, colors } from '../helpers';
-
 import styled from 'styled-components/native';
-
-interface ButtonProps {
-  children?: React.ReactNode,
-  onPress: any,
-  color?: string;
-  fontColor?: string;
-  title: string;
-  outline?: boolean;
-  status: boolean;
-  disabled: boolean;
-}
 
 const MainButton = (props: ButtonProps) => {
   if (props.outline) {

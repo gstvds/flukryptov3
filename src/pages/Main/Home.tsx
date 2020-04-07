@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, ActivityIndicator, View, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import core from '~/core';
@@ -11,26 +11,31 @@ import CryptoCard from '~/components/CryptoCard';
 import Header from '~/components/Header';
 
 import { Coin } from 'core/interfaces';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Home = () => {
   const navigation = useNavigation();
-
   const [page, setPage] = useState(0);
-  const [storeData, setStoreData] = useState([]);
-  const [allNames, setAllNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [subscribed, setSubscribed] = useState(false);
+  const [submited, setSubmited] = useState(false);
   let data: Array<object> = [];
+
   const fetchData = async () => {
-    console.log(page);
-
+    data = [];
     setIsLoading(true);
-
     const response = await core.routes.getData(page);
-
     setPage(page + 1);
-    // @ts-ignore
-    setStoreData(response.data.Data);
+    response.data.Data.forEach((coin: Coin) => {
+      data.push({
+        id: `${coin.CoinInfo.Name}${coin.CoinInfo.FullName}`,
+        fullName: coin.CoinInfo.FullName,
+        name: coin.CoinInfo.Name,
+        price: coin.DISPLAY.USD.PRICE,
+        percentage: coin.DISPLAY.USD.CHANGEPCT24HOUR,
+        volume: coin.DISPLAY.USD.TOTALVOLUME24HTO,
+      });
+    });
+    core.collections.CoinCollection.collect(data, 'all');
     setIsLoading(false);
   };
 
@@ -39,21 +44,23 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    data = [];
-    storeData.forEach((coin: Coin) => {
-      data.push({
-        fullName: coin.CoinInfo.FullName,
-        name: coin.CoinInfo.Name,
-        price: coin.DISPLAY.USD.PRICE,
-        percentage: coin.DISPLAY.USD.CHANGEPCT24HOUR,
-        volume: coin.DISPLAY.USD.TOTALVOLUME24HTO,
-      });
-    });
-    // @ts-ignore
-    setAllNames([...allNames, ...data]);
-  }, [storeData]);
+    if (submited) {
+      setSubmited(false);
+    }
+  }, [submited])
+
+  const isCloseToBottom = (nativeEvent: any) => {
+    const paddingToBottom = 20;
+    return (
+      nativeEvent.layoutMeasurement.height + nativeEvent.contentOffset.y >=
+      nativeEvent.contentSize.height - paddingToBottom
+    );
+  };
 
   return (
+    navigation.addListener('focus', () => {
+      setSubmited(true);
+    }) && (
     <>
       <View style={{ backgroundColor: colors.light_background }}>
         <Header
@@ -84,36 +91,48 @@ const Home = () => {
             <ActivityIndicator color={colors.green} size="small" />
           </Loading>
         )}
-        <FlatList
-          // @ts-ignore
-          keyExtractor={(item) => `${item.name}${item.fullName}`}
-          showsVerticalScrollIndicator={false}
-          data={allNames}
-          onEndReached={fetchData}
-          onEndReachedThreshold={0.2}
-          renderItem={({ item }) => (
-            <CryptoView>
-              <CryptoCard
-                // @ts-ignore
-                down={Number(item.percentage) < 0 ? true : false}
-                // @ts-ignore
-                coinVolume={item.volume}
-                // @ts-ignore
-                coinValue={item.price}
-                // @ts-ignore
-                coinDayChange={item.percentage}
-                // @ts-ignore
-                cryptoName={item.name}
-                // @ts-ignore
-                iconName={subscribed ? 'ios-star' : 'ios-star-outline'}
-                onPress={() => {}}
-              />
-            </CryptoView>
+        <ScrollView
+          onScroll={({ nativeEvent }) => {
+            if (isCloseToBottom(nativeEvent)) {
+              fetchData();
+            }
+          }}
+        >
+          {core.collections.CoinCollection.getGroup('all').output.map(
+            (object) => (
+              <CryptoView key={object.id} >
+                <CryptoCard
+                  onPressCard={() => {}}
+                  down={Number(object.percentage) < 0 ? true : false}
+                  coinVolume={object.volume}
+                  cryptoName={object.name}
+                  coinDayChange={object.percentage}
+                  coinValue={object.price}
+                  onPress={() => {
+                    core.collections.Subscribe(object.id, [
+                      {
+                        id: object.id,
+                        name: object.name,
+                        volume: object.volume,
+                        percentage: object.percentage,
+                        price: object.price,
+                      },
+                    ]);
+                    setSubmited(true);
+                  }}
+                  iconName={
+                    core.collections.CoinCollection.getGroup('subscribes').has(object.id)
+                    ? 'ios-star'
+                    : 'ios-star-outline'
+                  }
+                />
+              </CryptoView>
+            ),
           )}
-        />
+        </ScrollView>
       </MainContainer>
     </>
-  );
+  ));
 };
 
 const MainContainer = styled.View`

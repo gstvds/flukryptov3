@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
-import 'intl'
+import 'intl';
 
 import styled from 'styled-components/native';
 import { colors, fonts, metrics } from '~/helpers';
@@ -8,56 +9,39 @@ import { colors, fonts, metrics } from '~/helpers';
 import { CryptoProps } from 'core/interfaces';
 
 const CryptoCard = (props: CryptoProps) => {
-
-  useEffect(() => {
-    console.log(Number(props.coinDayChange) < 0)
-  }, [])
-
   return (
     <MainContainer>
-      <TopContainer>
-      <CoinName>
-        {props.cryptoName}
-      </CoinName>
-      <IconContainer onPress={props.onPress}>
-        <Icon name={props.iconName} size={22} color={colors.light_grey} />
-      </IconContainer>
-      </TopContainer>
-      <BottomContainer>
-        <Wrapper>
-        <CoinInfoTitle>
-          valor (USD)
-        </CoinInfoTitle>
-        <CoinInfoContainer>
-          <CoinInfoValue>
-          {props.coinValue}
-          </CoinInfoValue>
-        </CoinInfoContainer>
-        </Wrapper>
-        <Wrapper>
-        <CoinInfoTitle>
-          volume
-        </CoinInfoTitle>
-        <CoinInfoContainer>
-          <CoinInfoValue>
-            {props.coinVolume}
-          </CoinInfoValue>
-        </CoinInfoContainer>
-        </Wrapper>
-        <Wrapper>
-        <CoinInfoTitle>
-          variação/dia
-        </CoinInfoTitle>
-        <CoinInfoContainer percentage down={props.down}>
-          <CoinInfoValue>
-            {props.coinDayChange} %
-          </CoinInfoValue>
-        </CoinInfoContainer>
-        </Wrapper>
-      </BottomContainer>
+      <TouchableOpacity onPress={props.onPressCard}>
+        <TopContainer>
+          <CoinName>{props.cryptoName}</CoinName>
+          <IconContainer onPress={props.onPress}>
+            <Icon name={props.iconName} size={22} color={colors.light_grey} />
+          </IconContainer>
+        </TopContainer>
+        <BottomContainer>
+          <Wrapper>
+            <CoinInfoTitle>valor (USD)</CoinInfoTitle>
+            <CoinInfoContainer>
+              <CoinInfoValue>{props.coinValue}</CoinInfoValue>
+            </CoinInfoContainer>
+          </Wrapper>
+          <Wrapper>
+            <CoinInfoTitle>volume</CoinInfoTitle>
+            <CoinInfoContainer>
+              <CoinInfoValue>{props.coinVolume}</CoinInfoValue>
+            </CoinInfoContainer>
+          </Wrapper>
+          <Wrapper>
+            <CoinInfoTitle>variação/dia</CoinInfoTitle>
+            <CoinInfoContainer percentage down={props.down}>
+              <CoinInfoValue>{props.coinDayChange} %</CoinInfoValue>
+            </CoinInfoContainer>
+          </Wrapper>
+        </BottomContainer>
+      </TouchableOpacity>
     </MainContainer>
   );
-}
+};
 
 const MainContainer = styled.View`
   width: 100%;
@@ -111,7 +95,12 @@ const CoinInfoTitle = styled.Text`
 
 const CoinInfoContainer = styled.View<any>`
   margin-top: ${metrics.half_padding - 5}px;
-  background-color: ${props => props.percentage === true ? (props.down ? colors.red : colors.green) : colors.light_dark_grey};
+  background-color: ${(props) =>
+    props.percentage === true
+      ? props.down
+        ? colors.red
+        : colors.green
+      : colors.light_dark_grey};
   border-radius: 22px;
   width: 90px;
   height: 30px;

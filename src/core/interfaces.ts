@@ -30,5 +30,17 @@ export interface CryptoProps {
   coinValue: string;
   coinVolume: string;
   coinDayChange: string;
-  down?: true;
+  down?: boolean;
+  onPressCard: () => void;
+}
+
+export interface ButtonProps {
+  children?: React.ReactNode,
+  onPress: any,
+  color?: string;
+  fontColor?: string;
+  title: string;
+  outline?: boolean;
+  status: boolean;
+  disabled: boolean;
 }
