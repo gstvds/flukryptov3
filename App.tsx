@@ -1,8 +1,9 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors, fonts } from '~/helpers';
 
-import { NavigationContainer, useRoute, Route } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -68,6 +69,7 @@ const RootStackScreen = () => (
 const App = () => {
   return (
     <NavigationContainer>
+      <StatusBar  backgroundColor={colors.light_background} barStyle='dark-content' />
       <RootStackScreen />
     </NavigationContainer>
   );
