@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "116748447056",
+    "firebase_url": "https://flukryptov3.firebaseio.com",
+    "project_id": "flukryptov3",
+    "storage_bucket": "flukryptov3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116748447056:android:94deb6eaa377a4c1f09055",
+        "android_client_info": {
+          "package_name": "com.flukryptov3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116748447056-7oos6cvq4tlmr5gr69habbo2khe6hd9p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flukryptov3",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "116748447056-o43a8ctaiq02jd02n264abmnj5740m0r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqZzmZbChaa5VH1P4i5h8BFOSBNEpi-7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116748447056-o43a8ctaiq02jd02n264abmnj5740m0r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
