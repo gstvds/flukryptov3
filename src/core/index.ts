@@ -14,7 +14,6 @@ export const api = App.API({
   },
 });
 
-
 export default {
   api,
   routes: { ...routes },

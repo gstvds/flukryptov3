@@ -11,15 +11,6 @@ import { metrics } from '~/helpers';
 
 const Welcome = () => {
   const navigation = useNavigation();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const fakeLogin = () => {
-    setIsLoading(true);
-    setTimeout(()  => {
-      navigation.navigate('Home')
-      setIsLoading(false);
-    }, 2000);
-  }
 
   return (
     <MainContainer>
@@ -28,11 +19,9 @@ const Welcome = () => {
      </LogoContainer>
       <View style={{ marginTop: metrics.padding }} />
       <MainButton
-        onPress={() => {
-          fakeLogin();
-        }}
-        disabled={isLoading}
-        status={isLoading}
+        onPress={() => navigation.navigate('Login')}
+        disabled={false}
+        status={false}
         title="login"
       />
       <MainButton

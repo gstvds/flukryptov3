@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import { metrics, colors, validators } from '~/helpers';
+
+import core from '~/core/index';
 
 import Header from '~/components/Header';
 import Input from '~/components/Input';
@@ -14,10 +15,14 @@ const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+
   const [nameError, setNameError] = useState({ status: false, error: '' });
   const [emailError, setEmailError] = useState({ status: false, error: '' });
   const [passwordError, setPasswordError] = useState({ status: false, error: '' });
   const [repeatPasswordError, setRepeatPasswordError] = useState({ status: false, error: '' });
+
+  const [submited, setSubmited] = useState(false);
+
   const digitsOnly = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?][a-zA-Z]+/;
   const navigation = useNavigation();
 
@@ -59,6 +64,21 @@ const SignUp: React.FC = () => {
     }
     return true;
   }
+
+  useEffect(() => {
+    async function signUp() {
+      await core.routes.signUp({
+        email,
+        password,
+        name,
+      });
+      setSubmited(false);
+      navigation.navigate('Home');
+    }
+    if (submited) {
+      signUp();
+    }
+  }, [submited]);
 
   return (
     <>
@@ -108,12 +128,12 @@ const SignUp: React.FC = () => {
           onPress={() => {
             cleanErrors();
             if (checkEntries()) {
-              navigation.navigate('Welcome');
+              setSubmited(true);
             }
           }}
           title="cadastrar"
-          disabled={false}
-          status={false}
+          disabled={submited}
+          status={submited}
         />
       </MainContainer>
     </>

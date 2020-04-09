@@ -20,7 +20,12 @@ const Favorites = () => {
       setAllData(core.collections.CoinCollection.getGroup('subscribes').output);
       setSubmited(false);
     }
-  }, [submited])
+  }, [submited]);
+
+  const handleLogout = async () => {
+    await core.routes.logout();
+    navigation.navigate('Welcome');
+  }
 
   return (
     navigation.addListener('focus', () => {
@@ -41,7 +46,7 @@ const Favorites = () => {
                     onPress: () => {},
                     style: 'cancel',
                   },
-                  { text: 'OK', onPress: () => navigation.navigate('Welcome') },
+                  { text: 'OK', onPress: () => handleLogout() },
                 ],
                 { cancelable: false },
               );

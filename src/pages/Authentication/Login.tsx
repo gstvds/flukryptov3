@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
+;
 import styled from 'styled-components/native';
+import { colors, metrics, validators } from '~/helpers';
 
 import Header from '~/components/Header';
 import Input from '~/components/Input';
-import { colors, metrics, validators } from '~/helpers';
 import MainButton from '~/components/MainButton';
-import Request from '~/core/pulse';
+
+import core from '~/core';
 
 const Login: React.FC = () => {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [passwordError, setPasswordError] = useState({ status: false, error: '' });
   const [emailError, setEmailError] = useState({ status: false, error: '' });
+
+  const [submited, setSubmited] = useState(false);
+
   const digitsOnly = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?][a-zA-Z]+/;
   const navigation = useNavigation();
 
@@ -43,6 +48,28 @@ const Login: React.FC = () => {
     }
     return true;
   }
+
+  useEffect(() => {
+    async function login() {
+      const response = await core.routes.login({
+        email,
+        password,
+      });
+      if (response === 'auth/user-not-found') {
+        setEmailError({ status: true, error: 'Email não cadastrado' });
+        setSubmited(false);
+      } else if (response === 'auth/wrong-password') {
+        setPasswordError({ status: true, error: 'Senha inválida' });
+        setSubmited(false);
+      } else {
+        setSubmited(false);
+        navigation.navigate('Home',{ isSignedIn: true });
+      }
+    }
+    if (submited) {
+      login();
+    }
+  }, [submited]);
 
   return (
     <>
@@ -77,12 +104,12 @@ const Login: React.FC = () => {
           onPress={() => {
             cleanErrors();
             if (checkEntries()) {
-              navigation.navigate('Home', { isSignedIn: true });
+              setSubmited(true);
             }
           }}
           title='entrar'
-          status={false}
-          disabled={false}
+          status={submited}
+          disabled={submited}
         />
       </MainContainer>
     </>

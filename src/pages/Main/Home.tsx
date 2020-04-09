@@ -57,6 +57,11 @@ const Home = () => {
     );
   };
 
+  const handleLogout = async () => {
+    await core.routes.logout();
+    navigation.navigate('Welcome');
+  }
+
   return (
     navigation.addListener('focus', () => {
       setSubmited(true);
@@ -74,7 +79,7 @@ const Home = () => {
                   onPress: () => {},
                   style: 'cancel',
                 },
-                { text: 'OK', onPress: () => navigation.navigate('Welcome') },
+                { text: 'OK', onPress: () => handleLogout() },
               ],
               { cancelable: false },
             );
