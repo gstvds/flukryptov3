@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React from 'react';
 
 import styled from 'styled-components/native';
 import { colors, metrics, fonts } from '~/helpers';
@@ -14,20 +14,30 @@ interface InputProps {
   secureTextEntry?: boolean;
 }
 
-const Input: FC<InputProps> = (props) => {
+const Input = (props: InputProps) => {
+  const {
+    label,
+    error,
+    status,
+    keyboard,
+    value,
+    onChangeText,
+    secureTextEntry,
+  } = props;
+
   return (
     <FormContainer>
-      <InputLabel>{props.label}</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <CustomInput
         {...props}
         type="custom"
         blurOnSubmit
         autoCorrect={false}
-        keyboardType={props.keyboard}
+        keyboardType={keyboard}
       />
-      {props.status && (
+      {status && (
         <ErrorText allowFontScaling={false}>
-          {props.error}
+          {error}
         </ErrorText>
       )  
       }

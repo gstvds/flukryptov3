@@ -7,21 +7,28 @@ import { ButtonProps } from '~/core/interfaces';
 import { colors, metrics, fonts } from '~/helpers';
 
 const SmallButton = (props: ButtonProps) => {
+  const {
+    status,
+    onPress,
+    disabled,
+    title,
+  } = props;
+
   return (
     <View>
-      {!props.status && (
+      {!status && (
         <MainContainer>
           <TouchableOpacity
-            onPress={props.onPress}
-            disabled={props.disabled}
+            onPress={onPress}
+            disabled={disabled}
           >
             <ButtonContainer>
-              <ButtonTitle>{props.title}</ButtonTitle>
+              <ButtonTitle>{title}</ButtonTitle>
             </ButtonContainer>
           </TouchableOpacity>
         </MainContainer>
       )}
-      {props.status && (
+      {status && (
         <Loading>
           <ActivityIndicator color={colors.black} size="small" />
         </Loading>

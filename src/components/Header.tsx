@@ -18,13 +18,21 @@ import { HeaderProps } from 'core/interfaces';
  * @param onPress Void that determinates onPress action
  */
 const Header = (props: HeaderProps) => {
-  if (props.logout) {
+  const {
+    logout,
+    onPress,
+    disabled,
+    title,
+    color,
+  } = props;
+  
+  if (logout) {
     return (
       <HeaderContainer>
         <ImageContainer>
           <Logo source={header} />
         </ImageContainer>
-        <LogoutButton disabled={props.disabled} onPress={props.onPress}>
+        <LogoutButton disabled={disabled} onPress={onPress}>
           <Icon name="ios-log-out" size={26} />
         </LogoutButton>
       </HeaderContainer>
@@ -33,13 +41,13 @@ const Header = (props: HeaderProps) => {
   return (
     <HeaderContainer>
       <BackButton
-        onPress={props.onPress}
-        disabled={props.disabled}
+        onPress={onPress}
+        disabled={disabled}
       >
         <Icon name="ios-arrow-down" size={26} />
       </BackButton>
       <TitleContainer>
-        <Title>{props.title}</Title>
+        <Title>{title}</Title>
       </TitleContainer>
     </HeaderContainer>
   );

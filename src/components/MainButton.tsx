@@ -7,15 +7,23 @@ import { metrics, fonts, colors } from '../helpers';
 import styled from 'styled-components/native';
 
 const MainButton = (props: ButtonProps) => {
-  if (props.outline) {
+  const {
+    outline,
+    onPress,
+    disabled,
+    title,
+    status,
+  } = props;
+
+  if (outline) {
     return (
       <TouchableOpacity
-        onPress={props.onPress}
-        disabled={props.disabled}
+        onPress={onPress}
+        disabled={disabled}
       >
         <OutlineButtonView>
           <ButtonTitle allowFontScaling={false}>
-            {props.title}
+            {title}
           </ButtonTitle>
         </OutlineButtonView>
       </TouchableOpacity>
@@ -23,22 +31,22 @@ const MainButton = (props: ButtonProps) => {
   }
   return (
     <View>
-      {!props.status
+      {!status
         && (
           <TouchableOpacity
-            onPress={props.onPress}
-            disabled={props.disabled}
+            onPress={onPress}
+            disabled={disabled}
           >
             <FullButtonView>
               <ButtonTitle allowFontScaling={false}>
-                {props.title}
+                {title}
               </ButtonTitle>
             </FullButtonView>
           </TouchableOpacity>
         )
       }
       {
-        props.status
+        status
         && (
           <Loading>
             <ActivityIndicator color={colors.black} size='small' />

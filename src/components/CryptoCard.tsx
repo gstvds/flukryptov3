@@ -9,32 +9,43 @@ import { colors, fonts, metrics } from '~/helpers';
 import { CryptoProps } from 'core/interfaces';
 
 const CryptoCard = (props: CryptoProps) => {
+  const {
+    onPressCard,
+    onPress,
+    cryptoName,
+    iconName,
+    coinValue,
+    coinVolume,
+    coinDayChange,
+    down,
+  } = props;
+
   return (
     <MainContainer>
-      <TouchableOpacity onPress={props.onPressCard}>
+      <TouchableOpacity onPress={onPressCard}>
         <TopContainer>
-          <CoinName>{props.cryptoName}</CoinName>
-          <IconContainer onPress={props.onPress}>
-            <Icon name={props.iconName} size={22} color={colors.light_grey} />
+          <CoinName>{cryptoName}</CoinName>
+          <IconContainer onPress={onPress}>
+            <Icon name={iconName} size={22} color={colors.light_grey} />
           </IconContainer>
         </TopContainer>
         <BottomContainer>
           <Wrapper>
             <CoinInfoTitle>valor (USD)</CoinInfoTitle>
             <CoinInfoContainer>
-              <CoinInfoValue>{props.coinValue}</CoinInfoValue>
+              <CoinInfoValue>{coinValue}</CoinInfoValue>
             </CoinInfoContainer>
           </Wrapper>
           <Wrapper>
             <CoinInfoTitle>volume</CoinInfoTitle>
             <CoinInfoContainer>
-              <CoinInfoValue>{props.coinVolume}</CoinInfoValue>
+              <CoinInfoValue>{coinVolume}</CoinInfoValue>
             </CoinInfoContainer>
           </Wrapper>
           <Wrapper>
             <CoinInfoTitle>variação/dia</CoinInfoTitle>
-            <CoinInfoContainer percentage down={props.down}>
-              <CoinInfoValue>{props.coinDayChange} %</CoinInfoValue>
+            <CoinInfoContainer percentage down={down}>
+              <CoinInfoValue>{coinDayChange} %</CoinInfoValue>
             </CoinInfoContainer>
           </Wrapper>
         </BottomContainer>
