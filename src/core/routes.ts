@@ -1,4 +1,4 @@
-import { api } from '.'
+import core, { api } from '.'
 import auth from '@react-native-firebase/auth';
 
 export interface LoginPayload {

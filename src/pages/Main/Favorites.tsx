@@ -11,13 +11,12 @@ import core from '~/core';
 
 const Favorites = () => {
   const navigation = useNavigation();
-  const [allData, setAllData] = useState([]);
-  const [submited, setSubmited] = useState(false);
+  const [allData, setAllData] = useState<Array<any>>([]);
+  const [submited, setSubmited] = useState<boolean>(false);
 
   useEffect(() => {
     if (submited) {
-      // @ts-ignore
-      setAllData(core.collections.CoinCollection.getGroup('subscribes').output);
+      setAllData(core.coins.collections.CoinCollection.getGroup('subscribes').output);
       setSubmited(false);
     }
   }, [submited]);
@@ -29,9 +28,8 @@ const Favorites = () => {
 
   return (
     navigation.addListener('focus', () => {
-      // @ts-ignore
-      setAllData(core.collections.CoinCollection.getGroup('subscribes').output);
-      let data = core.collections.CoinCollection.getGroup('subscribes').output;
+      setAllData(core.coins.collections.CoinCollection.getGroup('subscribes').output);
+      let data = core.coins.collections.CoinCollection.getGroup('subscribes').output;
     }) && (
       <>
         <View style={{ backgroundColor: colors.white }}>
@@ -59,45 +57,26 @@ const Favorites = () => {
         </TitleContainer>
         <MainContainer>
           <FlatList
-            // @ts-ignore
-            keyExtractor={(item) => `${item.name}${item.fullName}`}
+            keyExtractor={(item: any) => `${item.name}${item.fullName}`}
             showsVerticalScrollIndicator={false}
             data={allData}
-            renderItem={({ item }) => (
+            renderItem={({ item }: any) => (
               <CryptoView>
                 <CryptoCard
                   onPressCard={() => {}}
-                  // @ts-ignore
                   down={Number(item.percentage) < 0 ? true : false}
-                  // @ts-ignore
                   coinVolume={item.volume}
-                  // @ts-ignore
                   coinValue={item.price}
-                  // @ts-ignore
                   coinDayChange={item.percentage}
-                  // @ts-ignore
                   cryptoName={item.name}
                   iconName={
-                    // @ts-ignore
-                    core.collections.CoinCollection.getGroup('subscribes').has(item.id)
+                    core.coins.collections.CoinCollection.getGroup('subscribes').has(item.id)
                       ? 'ios-star'
                       : 'ios-star-outline'
                   }
                   onPress={() => {
-                    // @ts-ignore
-                    core.collections.Subscribe(item.id, [
-                      {
-                        // @ts-ignore
-                        id: item.id,
-                        // @ts-ignore
-                        name: item.name,
-                        // @ts-ignore
-                        volume: item.volume,
-                        // @ts-ignore
-                        percentage: item.percentage,
-                        // @ts-ignore
-                        price: item.price,
-                      },
+                    core.coins.routes.Subscribe(item.id, [
+                      item,
                     ]);
                     setSubmited(true);
                   }}

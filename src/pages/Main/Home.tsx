@@ -35,7 +35,7 @@ const Home = () => {
         volume: coin.DISPLAY.USD.TOTALVOLUME24HTO,
       });
     });
-    core.collections.CoinCollection.collect(data, 'all');
+    core.coins.collections.CoinCollection.collect(data, 'all');
     setIsLoading(false);
   };
 
@@ -44,9 +44,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (submited) {
-      setSubmited(false);
-    }
+    setSubmited(false);
   }, [submited])
 
   const isCloseToBottom = (nativeEvent: any) => {
@@ -103,7 +101,7 @@ const Home = () => {
             }
           }}
         >
-          {core.collections.CoinCollection.getGroup('all').output.map(
+          {core.coins.collections.CoinCollection.getGroup('all').output.map(
             (object) => (
               <CryptoView key={object.id} >
                 <CryptoCard
@@ -114,19 +112,13 @@ const Home = () => {
                   coinDayChange={object.percentage}
                   coinValue={object.price}
                   onPress={() => {
-                    core.collections.Subscribe(object.id, [
-                      {
-                        id: object.id,
-                        name: object.name,
-                        volume: object.volume,
-                        percentage: object.percentage,
-                        price: object.price,
-                      },
+                    core.coins.routes.Subscribe(object.id, [
+                      object,
                     ]);
                     setSubmited(true);
                   }}
                   iconName={
-                    core.collections.CoinCollection.getGroup('subscribes').has(object.id)
+                    core.coins.collections.CoinCollection.getGroup('subscribes').has(object.id)
                     ? 'ios-star'
                     : 'ios-star-outline'
                   }

@@ -1,6 +1,6 @@
 import { App } from './pulse';
 import * as routes from './routes';
-import * as collections from './collections';
+import { CoinCollection, Subscribe } from './collections';
 // @ts-ignore
 import { APIKEY, baseURL } from 'react-native-dotenv';
 
@@ -17,5 +17,15 @@ export const api = App.API({
 export default {
   api,
   routes: { ...routes },
-  collections: { ...collections },
+  coins: {
+    collections: {
+      CoinCollection,
+    },
+    state: {
+      subscribe: App.State({}).type(Object)
+    },
+    routes: {
+      Subscribe,
+    }
+  },
 };
