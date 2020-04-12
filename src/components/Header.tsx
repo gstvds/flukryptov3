@@ -1,16 +1,17 @@
-import React  from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import styled from 'styled-components/native';
+import styled, { ThemeContext } from 'styled-components/native';
 
-import header from '~/assets/header.png';
+import lightHeader from '~/assets/light/header.png';
+import darkHeader from '~/assets/dark/header.png'
 import { metrics, fonts, colors } from '~/helpers';
 
 import { HeaderProps } from 'core/interfaces';
 
 /**
- * 
+ *
  * @param props React Native properties
  * @param logout Boolean that determinates if the header have logout button or not
  * @param title String that determinates header title
@@ -18,33 +19,22 @@ import { HeaderProps } from 'core/interfaces';
  * @param onPress Void that determinates onPress action
  */
 const Header = (props: HeaderProps) => {
-  const {
-    logout,
-    onPress,
-    disabled,
-    title,
-    color,
-  } = props;
-  
+  const { logout, onPress, disabled, title, color } = props;
+  const theme = useContext(ThemeContext);
+
   if (logout) {
     return (
       <HeaderContainer>
         <ImageContainer>
-          <Logo source={header} />
+          <Logo source={theme.name === 'dark' ? darkHeader : lightHeader} />
         </ImageContainer>
-        <LogoutButton disabled={disabled} onPress={onPress}>
-          <Icon name="ios-log-out" size={26} />
-        </LogoutButton>
       </HeaderContainer>
     );
   }
   return (
     <HeaderContainer>
-      <BackButton
-        onPress={onPress}
-        disabled={disabled}
-      >
-        <Icon name="ios-arrow-down" size={26} />
+      <BackButton onPress={onPress} disabled={disabled}>
+        <Icon name="ios-arrow-down" size={26} color={theme.title} />
       </BackButton>
       <TitleContainer>
         <Title>{title}</Title>
@@ -54,6 +44,7 @@ const Header = (props: HeaderProps) => {
 };
 
 const HeaderContainer = styled.View<any>`
+  background-color: ${props => props.theme.background};
   align-items: center;
   justify-content: space-between;
   height: 60px;
@@ -66,21 +57,19 @@ const TitleContainer = styled.View<any>`
   flex: 1;
   justify-content: center;
   align-items: center;
-  margin-right: ${(metrics.half_padding) + 26}px;
+  margin-right: ${metrics.half_padding + 26}px;
 `;
 
 const Title = styled.Text<any>`
   font-family: ${fonts.quicksand_bold};
   font-size: 26px;
   text-align: center;
-  color: ${(props) => props.color || colors.black};
+  color: ${(props) => props.theme.button_text};
 `;
 
 const BackButton = styled.TouchableOpacity`
   margin-horizontal: ${metrics.half_padding}px;
 `;
-
-const LogoutButton = styled.TouchableOpacity``;
 
 const ImageContainer = styled.View`
   flex: 1;

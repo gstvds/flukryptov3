@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ActivityIndicator, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import core from '~/core';
 
-import styled from 'styled-components/native';
+import styled, { ThemeContext }  from 'styled-components/native';
 import { colors, metrics, fonts } from '~/helpers';
 
 import CryptoCard from '~/components/CryptoCard';
@@ -14,6 +14,7 @@ import { Coin } from 'core/interfaces';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const Home = () => {
+  const theme = useContext(ThemeContext);
   const navigation = useNavigation();
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +22,7 @@ const Home = () => {
   let data: Array<object> = [];
 
   const fetchData = async () => {
+    
     data = [];
     setIsLoading(true);
     const response = await core.routes.getData(page);
@@ -65,7 +67,7 @@ const Home = () => {
       setSubmited(true);
     }) && (
     <>
-      <View style={{ backgroundColor: colors.light_background }}>
+      <View style={{ backgroundColor: theme.background }}>
         <Header
           onPress={() => {
             Alert.alert(
@@ -91,7 +93,7 @@ const Home = () => {
       <MainContainer>
         {isLoading && page === 0 && (
           <Loading>
-            <ActivityIndicator color={colors.green} size="small" />
+            <ActivityIndicator color={theme.green} size="small" />
           </Loading>
         )}
         <ScrollView
@@ -108,7 +110,7 @@ const Home = () => {
                   onPressCard={() => {}}
                   down={Number(object.percentage) < 0 ? true : false}
                   coinVolume={object.volume}
-                  cryptoName={object.name}
+                  cryptoName={object.fullName}
                   coinDayChange={object.percentage}
                   coinValue={object.price}
                   onPress={() => {
@@ -132,8 +134,8 @@ const Home = () => {
   ));
 };
 
-const MainContainer = styled.View`
-  background-color: ${colors.light_background};
+const MainContainer = styled.View<any>`
+  background-color: ${props => props.theme.background};
   flex: 1;
   justify-content: center;
   align-items: center;
@@ -145,14 +147,14 @@ const Loading = styled.View`
   align-items: center;
 `;
 
-const ScreenTitle = styled.Text`
+const ScreenTitle = styled.Text<any>`
   font-family: ${fonts.quicksand_bold};
   font-size: 22px;
-  color: ${colors.black};
+  color: ${props => props.theme.title};
 `;
 
-const TitleContainer = styled.View`
-  background-color: ${colors.light_background};
+const TitleContainer = styled.View<any>`
+  background-color: ${props => props.theme.background};
   height: ${metrics.screen_width / 5 - metrics.padding}px;
   padding-horizontal: ${metrics.double_padding}px;
   padding-top: ${metrics.double_padding}px;

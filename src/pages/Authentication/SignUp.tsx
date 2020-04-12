@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components/native';
-import { metrics, colors, validators } from '~/helpers';
+import styled, { ThemeContext } from 'styled-components/native';
 
 import core from '~/core/index';
+import { metrics, validators } from '~/helpers';
 
 import Header from '~/components/Header';
 import Input from '~/components/Input';
@@ -18,20 +19,28 @@ const SignUp: React.FC = () => {
 
   const [nameError, setNameError] = useState({ status: false, error: '' });
   const [emailError, setEmailError] = useState({ status: false, error: '' });
-  const [passwordError, setPasswordError] = useState({ status: false, error: '' });
-  const [repeatPasswordError, setRepeatPasswordError] = useState({ status: false, error: '' });
+  const [passwordError, setPasswordError] = useState({
+    status: false,
+    error: '',
+  });
+  const [repeatPasswordError, setRepeatPasswordError] = useState({
+    status: false,
+    error: '',
+  });
 
   const [submited, setSubmited] = useState(false);
 
   const digitsOnly = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?][a-zA-Z]+/;
   const navigation = useNavigation();
 
+  const theme: any = useContext(ThemeContext);
+
   const cleanErrors = () => {
-    setNameError({ status: false, error: ''});
-    setEmailError({ status: false, error: ''});
-    setPasswordError({ status: false, error: ''});
-    setRepeatPasswordError({ status: false, error: ''});
-  }
+    setNameError({ status: false, error: '' });
+    setEmailError({ status: false, error: '' });
+    setPasswordError({ status: false, error: '' });
+    setRepeatPasswordError({ status: false, error: '' });
+  };
 
   const checkEntries = () => {
     if (name === '') {
@@ -47,15 +56,24 @@ const SignUp: React.FC = () => {
       return false;
     }
     if (password.length < 4) {
-      setPasswordError({ status: true, error: 'A senha deve conter no mínimo 4 dígitos' });
+      setPasswordError({
+        status: true,
+        error: 'A senha deve conter no mínimo 4 dígitos',
+      });
       return false;
     }
     if (repeatPassword === '') {
-      setRepeatPasswordError({ status: true, error: 'A senha não pode estar vazia' });
+      setRepeatPasswordError({
+        status: true,
+        error: 'A senha não pode estar vazia',
+      });
       return false;
     }
     if (password !== repeatPassword) {
-      setRepeatPasswordError({ status: true, error: 'As senhas não coincidem' });
+      setRepeatPasswordError({
+        status: true,
+        error: 'As senhas não coincidem',
+      });
       return false;
     }
     if (!validators.emailValidator(email)) {
@@ -63,7 +81,7 @@ const SignUp: React.FC = () => {
       return false;
     }
     return true;
-  }
+  };
 
   useEffect(() => {
     async function signUp() {
@@ -82,7 +100,9 @@ const SignUp: React.FC = () => {
 
   return (
     <>
-      <Header onPress={() => navigation.goBack()} title="cadastrar" />
+      <View style={{ backgroundColor: theme.background }} >
+        <Header onPress={() => navigation.goBack()} title="cadastrar" />
+      </View>
       <MainContainer>
         <SignUpContainer>
           <Input
@@ -140,8 +160,8 @@ const SignUp: React.FC = () => {
   );
 };
 
-const MainContainer = styled.View`
-  color: ${colors.light_background};
+const MainContainer = styled.View<any>`
+  background-color: ${(props) => props.theme.background};
   flex: 1;
   justify-content: space-around;
   align-items: center;
@@ -149,7 +169,7 @@ const MainContainer = styled.View`
 
 const SignUpContainer = styled.View<any>`
   margin-top: ${metrics.double_padding}px;
-  background-color: ${colors.input_background};
+  background-color: ${(props) => props.theme.input_background};
   padding-horizontal: ${metrics.padding}px;
   padding-top: ${metrics.padding}px;
   padding-bottom: ${metrics.double_padding}px;

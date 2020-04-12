@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import 'intl';
 
-import styled from 'styled-components/native';
-import { colors, fonts, metrics } from '~/helpers';
+import styled, { ThemeContext } from 'styled-components/native';
+import { fonts, metrics } from '~/helpers';
 
 import { CryptoProps } from 'core/interfaces';
 
@@ -20,13 +20,15 @@ const CryptoCard = (props: CryptoProps) => {
     down,
   } = props;
 
+  const theme = useContext(ThemeContext);
+
   return (
     <MainContainer>
       <TouchableOpacity onPress={onPressCard}>
         <TopContainer>
           <CoinName>{cryptoName}</CoinName>
           <IconContainer onPress={onPress}>
-            <Icon name={iconName} size={22} color={colors.light_grey} />
+            <Icon name={iconName} size={22} color={theme.icon} />
           </IconContainer>
         </TopContainer>
         <BottomContainer>
@@ -54,12 +56,12 @@ const CryptoCard = (props: CryptoProps) => {
   );
 };
 
-const MainContainer = styled.View`
+const MainContainer = styled.View<any>`
   width: 100%;
   padding-horizontal: ${metrics.half_padding}px;
   padding-top: ${metrics.half_padding}px;
   padding-bottom: ${metrics.padding}px;
-  background-color: ${colors.background};
+  background-color: ${props => props.theme.card_background};
   border-radius: 22px;
   justify-content: space-between;
   margin-vertical: ${metrics.padding}px;
@@ -75,12 +77,12 @@ const IconContainer = styled.TouchableOpacity`
   margin-horizontal: ${metrics.padding - 5}px;
 `;
 
-const CoinName = styled.Text`
+const CoinName = styled.Text<any>`
   margin-left: ${metrics.half_padding}px;
   text-align: left;
   font-family: ${fonts.quicksand_bold};
   font-size: 20px;
-  color: ${colors.light_grey};
+  color: ${props => props.theme.card_text};
 `;
 
 const BottomContainer = styled.View`
@@ -97,11 +99,11 @@ const Wrapper = styled.View`
   align-items: center;
 `;
 
-const CoinInfoTitle = styled.Text`
+const CoinInfoTitle = styled.Text<any>`
   text-align: center;
   font-family: ${fonts.quicksand};
   font-size: 16px;
-  color: ${colors.light_grey};
+  color: ${props => props.theme.card_text};
 `;
 
 const CoinInfoContainer = styled.View<any>`
@@ -109,9 +111,9 @@ const CoinInfoContainer = styled.View<any>`
   background-color: ${(props) =>
     props.percentage === true
       ? props.down
-        ? colors.red
-        : colors.green
-      : colors.light_dark_grey};
+        ? props.theme.red
+        : props.theme.green
+      : props.theme.small_card_background};
   border-radius: 22px;
   width: 90px;
   height: 30px;
@@ -119,11 +121,11 @@ const CoinInfoContainer = styled.View<any>`
   align-items: center;
 `;
 
-const CoinInfoValue = styled.Text`
+const CoinInfoValue = styled.Text<any>`
   text-align: center;
   font-family: ${fonts.quicksand_medium};
   font-size: 16px;
-  color: ${colors.light_grey};
+  color: ${props => props.theme.card_text};
 `;
 
 export default CryptoCard;

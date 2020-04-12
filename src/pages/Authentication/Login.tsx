@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native'
-;
-import styled from 'styled-components/native';
-import { colors, metrics, validators } from '~/helpers';
+import { useNavigation } from '@react-navigation/native';
+import styled, { ThemeContext } from 'styled-components/native';
+import { metrics, validators } from '~/helpers';
 
 import Header from '~/components/Header';
 import Input from '~/components/Input';
@@ -13,10 +12,15 @@ import MainButton from '~/components/MainButton';
 import core from '~/core';
 
 const Login: React.FC = () => {
+  const theme: any = useContext(ThemeContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [passwordError, setPasswordError] = useState({ status: false, error: '' });
+  const [passwordError, setPasswordError] = useState({
+    status: false,
+    error: '',
+  });
   const [emailError, setEmailError] = useState({ status: false, error: '' });
 
   const [submited, setSubmited] = useState(false);
@@ -25,13 +29,17 @@ const Login: React.FC = () => {
   const navigation = useNavigation();
 
   const cleanErrors = () => {
-    setEmailError({ status: false, error: ''});
-    setPasswordError({ status: false, error: ''});
-  }
+    setEmailError({ status: false, error: '' });
+    setPasswordError({ status: false, error: '' });
+  };
 
   const checkEntries = () => {
     if (email === '') {
       setEmailError({ status: true, error: 'O email não pode estar vazio' });
+      return false;
+    }
+    if (!validators.emailValidator(email)) {
+      setEmailError({ status: true, error: 'Email inválido' });
       return false;
     }
     if (password === '') {
@@ -39,15 +47,14 @@ const Login: React.FC = () => {
       return false;
     }
     if (password.length < 4) {
-      setPasswordError({ status: true, error: 'A senha deve conter no mínimo 4 dígitos' });
-      return false;
-    }
-    if (!validators.emailValidator(email)) {
-      setEmailError({ status: true, error: 'Email inválido' });
+      setPasswordError({
+        status: true,
+        error: 'A senha deve conter no mínimo 4 dígitos',
+      });
       return false;
     }
     return true;
-  }
+  };
 
   useEffect(() => {
     async function login() {
@@ -63,7 +70,7 @@ const Login: React.FC = () => {
         setSubmited(false);
       } else {
         setSubmited(false);
-        navigation.navigate('Home',{ isSignedIn: true });
+        navigation.navigate('Home', { isSignedIn: true });
       }
     }
     if (submited) {
@@ -73,31 +80,33 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <Header onPress={() => navigation.goBack()} title="entrar" />
+      <View style={{ backgroundColor: theme.background }}>
+        <Header onPress={() => navigation.goBack()} title="entrar" />
+      </View>
       <MainContainer>
         <LoginContainer>
           <View style={{ margin: metrics.padding }}>
-          <Input
-            value={email}
-            onChangeText={(text: string) => setEmail(text)}
-            label="email"
-            status={emailError.status}
-            error={emailError.error}
-            keyboard='email-address'
-          />
-          <Input
-            value={password}
-            onChangeText={(text: string) => {
-              if (!digitsOnly.test(text) && text.length <= 10) {
-                setPassword(text)
-              }
-            }}
-            label="password"
-            status={passwordError.status}
-            error={passwordError.error}
-            keyboard='number-pad'
-            secureTextEntry
-          />
+            <Input
+              value={email}
+              onChangeText={(text: string) => setEmail(text)}
+              label="email"
+              status={emailError.status}
+              error={emailError.error}
+              keyboard="email-address"
+            />
+            <Input
+              value={password}
+              onChangeText={(text: string) => {
+                if (!digitsOnly.test(text) && text.length <= 10) {
+                  setPassword(text);
+                }
+              }}
+              label="password"
+              status={passwordError.status}
+              error={passwordError.error}
+              keyboard="number-pad"
+              secureTextEntry
+            />
           </View>
         </LoginContainer>
         <MainButton
@@ -107,7 +116,7 @@ const Login: React.FC = () => {
               setSubmited(true);
             }
           }}
-          title='entrar'
+          title="entrar"
           status={submited}
           disabled={submited}
         />
@@ -116,16 +125,16 @@ const Login: React.FC = () => {
   );
 };
 
-const MainContainer = styled.View`
-  color: ${colors.light_background};
+const MainContainer = styled.View<any>`
+  background-color: ${(props) => props.theme.background};
   flex: 1;
   justify-content: space-around;
   align-items: center;
 `;
 
-const LoginContainer = styled.View`
+const LoginContainer = styled.View<any>`
   margin-top: ${metrics.double_padding}px;
-  background-color: ${colors.input_background};
+  background-color: ${(props) => props.theme.input_background};
   border-radius: 20px;
 `;
 

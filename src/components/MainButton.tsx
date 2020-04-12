@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 
 import { ButtonProps } from '~/core/interfaces';
 
 import { metrics, fonts, colors } from '../helpers';
-import styled from 'styled-components/native';
+import styled, { ThemeContext } from 'styled-components/native';
 
 const MainButton = (props: ButtonProps) => {
   const {
@@ -14,6 +14,7 @@ const MainButton = (props: ButtonProps) => {
     title,
     status,
   } = props;
+  const theme = useContext(ThemeContext);
 
   if (outline) {
     return (
@@ -65,7 +66,7 @@ const FullButtonView = styled.View<any>`
   padding-horizontal: ${metrics.padding}px;
   padding-vertical: ${metrics.padding + 2}px;
   margin-vertical: ${metrics.double_padding}px;
-  background-color: ${(props) => props.color || colors.green };
+  background-color: ${(props) => props.color || props.theme.green };
   width: ${metrics.screen_width / 1.8}px;
 `
 
@@ -77,7 +78,7 @@ const Loading = styled(View)<any>`
   padding-horizontal: ${metrics.double_padding}px;
   padding-vertical: ${metrics.padding + 2}px;
   margin-vertical: ${metrics.half_padding}px;
-  background-color: ${props => props.color || colors.green};
+  background-color: ${props => props.color || props.theme.green};
 `
 
 const OutlineButtonView = styled(View)<any>`
@@ -89,7 +90,7 @@ const OutlineButtonView = styled(View)<any>`
   padding-horizontal: ${metrics.double_padding}px;
   padding-vertical: ${metrics.padding + 2}px;
   margin-vertical: ${metrics.half_padding}px;
-  border-color: ${props => props.color || colors.black};
+  border-color: ${props => props.color || props.theme.button_text};
   width: ${metrics.screen_width / 1.8}px;
 `
 
@@ -97,7 +98,7 @@ const ButtonTitle = styled(Text)<any>`
   font-family: ${fonts.quicksand_bold};
   font-size: 20px;
   margin-bottom: 3px;
-  color: ${props => props.fontColor || colors.black};
+  color: ${props => props.fontColor || props.theme.button_text};
 `
 
 export default MainButton;

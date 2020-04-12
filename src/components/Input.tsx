@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import styled from 'styled-components/native';
+import styled, { ThemeContext } from 'styled-components/native';
 import { colors, metrics, fonts } from '~/helpers';
 
 interface InputProps {
@@ -24,6 +24,8 @@ const Input = (props: InputProps) => {
     onChangeText,
     secureTextEntry,
   } = props;
+
+  const theme = useContext(ThemeContext);
 
   return (
     <FormContainer>
@@ -53,17 +55,17 @@ const InputLabel = styled.Text<any>`
   width: ${metrics.screen_width - metrics.double_padding * 5}px;
   font-size: 20px;
   font-family: ${fonts.quicksand};
-  color: ${props => (props.status ? colors.red : colors.light_grey)};
+  color: ${props => (props.status ? props.theme.red : props.theme.input_text)};
   margin-vertical: 3px;
   margin-horizontal: ${metrics.padding}px;
 `;
 
 const CustomInput = styled.TextInput<any>`
-  color: ${props => (props.status ? colors.red : colors.light_grey)};
+  color: ${props => (props.status ? props.theme.red : props.theme.input_text)};
   font-size: 20px;
   font-family: ${fonts.quicksand_medium};
   border-bottom-width: 1px;
-  border-color: ${colors.light_grey};
+  border-color: ${props => props.theme.input_text};
   padding-horizontal: 2px;
   padding-vertical: 2px;
   width: ${metrics.screen_width - metrics.double_padding * 5}px;
@@ -71,9 +73,9 @@ const CustomInput = styled.TextInput<any>`
   margin-bottom: ${metrics.half_padding}px;
 `;
 
-const ErrorText = styled.Text`
+const ErrorText = styled.Text<any>`
   font-family: ${fonts.quicksand_bold};
-  color: ${colors.red};
+  color: ${props => props.theme.red};
   margin-horizontal: ${metrics.padding}px;
   align-self: flex-start;
   font-size: 14px;

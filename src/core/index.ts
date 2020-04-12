@@ -28,4 +28,5 @@ export default {
       Subscribe,
     }
   },
+  themed: App.State(false).type(Boolean),
 };
