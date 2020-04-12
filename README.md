@@ -1,5 +1,5 @@
 <p align='center'>
-<img alt='Logo' src='https://github.com/gstvds/flukryptov3/blob/master/src/assets/header%403x.png'>
+<img alt='Logo' src='https://github.com/gstvds/flukryptov3/blob/master/src/assets/dark/header%403x.png'>
 </p>
 
 <h2>A brand new version of <a href='https://github.com/gstvds/flukryptov2'>flukrypto</a>, with big changes!
