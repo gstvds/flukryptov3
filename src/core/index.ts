@@ -29,4 +29,12 @@ export default {
     }
   },
   themed: App.State(false).type(Boolean),
+  user: {
+    state: {
+      isLogged: App.State(false).type(Boolean),
+      credentials: App.State<{ uid: any, idToken: any}>({ uid: null , idToken: null }).type(Object),
+      currentUser: App.State({ status: 'noUser', isAnonymous: true }),
+    },
+  },
+  loading: App.State(false).type(Boolean)
 };

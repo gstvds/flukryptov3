@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WelcomeScreen from './src/pages/Authentication/Welcome';
 import LoginScreen from './src/pages/Authentication/Login';
 import SignUpScreen from './src/pages/Authentication/SignUp';
+import LoadingScreen from './src/pages/Authentication/Loading';
 import HomeScreen from './src/pages/Main/Home';
 import FavoritesScreen from './src/pages/Main/Favorites';
 import SettingsScreen from './src/pages/Main/Settings';
@@ -23,9 +24,10 @@ import { usePulse } from './pulse/dist';
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator
-    initialRouteName="Welcome"
+    initialRouteName="Loading"
     screenOptions={{ headerShown: false }}
   >
+    <AuthStack.Screen name="Loading" component={LoadingScreen} />
     <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
     <AuthStack.Screen name="Login" component={LoginScreen} />
     <AuthStack.Screen name="SignUp" component={SignUpScreen} />

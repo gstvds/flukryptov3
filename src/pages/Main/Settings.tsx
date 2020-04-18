@@ -18,8 +18,7 @@ const Settings = () => {
   const navigation = useNavigation();
 
   const handleLogout = async () => {
-    await core.routes.logout();
-    navigation.navigate('Welcome');
+    await core.routes.logout(navigation.navigate);
   };
 
   return (
