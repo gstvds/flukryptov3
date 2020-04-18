@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Alert } from 'react-native';
+import { View, Alert, Switch } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import styled, { ThemeContext } from 'styled-components/native';
@@ -32,24 +32,25 @@ const Settings = () => {
       <MainContainer>
         <ButtonContainer>
           <ButtonText>trocar modo:</ButtonText>
-          <TouchableOpacity
-            onPress={() => {
-              core.themed.set(!themed);
-            }}
-            style={{
-              borderBottomWidth: 1,
-              borderColor: theme.title,
-            }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <ButtonText>{themed ? 'dark mode' : 'light mode'}</ButtonText>
-              <Icon
-                name={themed ? 'ios-moon' : 'ios-sunny'}
-                size={22}
-                color={theme.icon}
-              />
-            </View>
-          </TouchableOpacity>
+          <SwitchContainer>
+            <Icon
+              name={themed ? 'ios-moon' : 'ios-sunny'}
+              size={22}
+              color={theme.theme_icon}
+              style={{ marginRight: metrics.padding }}
+            />
+            <Switch
+              value={themed}
+              onValueChange={() => {
+                core.themed.set(!themed);
+              }}
+              trackColor={{
+                false: theme.input_background,
+                true: theme.green,
+              }}
+              thumbColor={theme.white}
+            />
+          </SwitchContainer>
         </ButtonContainer>
         <SpaceContainer />
         <LogoutContainer>
@@ -115,15 +116,18 @@ const ButtonText = styled.Text<any>`
   color: ${(props) => props.theme.title};
   font-size: 24px;
   font-family: ${fonts.quicksand};
-  margin-right: ${metrics.padding}px;
+  margin-left: ${metrics.padding}px;
   text-align: center;
 `;
 
-const LogoutButton = styled.TouchableOpacity<any>``;
+const SwitchContainer = styled.View<any>`
+  flex-direction: row;
+  justify-content: space-around;
+  margin-right: ${metrics.padding}px;
+`;
 
 const SpaceContainer = styled.View`
   flex: 1;
-  background-color: red;
   padding-bottom: ${metrics.double_padding}px;
 `;
 

@@ -16,6 +16,7 @@ export default {
     icon: "#656565",
     small_card_background: "#D7D7D7",
     statusbar_color: "#FCFCFC",
+    theme_icon: "#FFD134",
   },
   dark: {
     name: 'dark',
@@ -34,5 +35,6 @@ export default {
     icon: "#FFFFFF",
     small_card_background: "#656565",
     statusbar_color: "#1F1F1F",
+    theme_icon: "#FFFFFF"
   },
 }
