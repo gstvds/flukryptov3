@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { colors, fonts } from '~/helpers';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import WelcomeScreen from './src/pages/Authentication/Welcome';
 import LoginScreen from './src/pages/Authentication/Login';
@@ -34,19 +33,16 @@ const AuthStackScreen = () => (
   </AuthStack.Navigator>
 );
 
-const HomeStack = createBottomTabNavigator();
+const HomeStack = createMaterialBottomTabNavigator();
 const HomeStackScreen = () => {
-  const theme: any = React.useContext(ThemeContext);
+  const theme: any = useContext(ThemeContext);
   return (
   <HomeStack.Navigator
-    tabBarOptions={{
-      activeTintColor: theme.green,
-      inactiveTintColor: theme.icon,
-      labelStyle: {
-        fontFamily: fonts.quicksand,
-      },
-      activeBackgroundColor: theme.background,
-      inactiveBackgroundColor: theme.background,
+    activeColor={theme.green}
+    inactiveColor={theme.icon}
+    shifting={true}
+    screenOptions={{
+      tabBarColor: theme.background
     }}
   >
     <HomeStack.Screen
