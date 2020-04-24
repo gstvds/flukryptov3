@@ -16,7 +16,7 @@ import {
   SwitchContainer,
 } from './styles';
 
-import { usePulse } from '~/../pulse/dist';
+import { usePulse } from 'pulse-framework';
 import core from '~/core';
 
 import { useNavigation } from '@react-navigation/native';

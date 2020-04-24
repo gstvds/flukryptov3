@@ -9,7 +9,7 @@ import { ThemeContext } from 'styled-components';
 import { Logo, MainContainer } from './styles';
 
 import core from '~/core';
-import { usePulse } from '~/../pulse/dist';
+import { usePulse } from 'pulse-framework';
 
 const Loading = () => {
   const [loading, currentUser] = usePulse([

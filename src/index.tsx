@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from '~/helpers/theme';
 
 import core from '~/core';
-import { usePulse } from '../pulse/dist';
+import { usePulse } from 'pulse-framework';
 
 import Routes from '~/pages/routes';
 
