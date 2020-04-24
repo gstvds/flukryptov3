@@ -1,6 +1,6 @@
-import { App } from './pulse';
-import * as routes from './routes';
-import { CoinCollection, Subscribe } from './collections';
+import { App } from './core.pulse';
+import * as routes from './core.routes';
+import { CoinCollection, Subscribe } from './core.collections';
 // @ts-ignore
 import { APIKEY, baseURL } from 'react-native-dotenv';
 

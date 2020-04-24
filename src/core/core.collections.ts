@@ -1,4 +1,4 @@
-import { App } from './pulse';
+import { App } from './core.pulse';
 
 export const CoinCollection = App.Collection({
   groups: ['all', 'subscribes'],
