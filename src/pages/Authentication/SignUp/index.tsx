@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import styled, { ThemeContext } from 'styled-components/native';
+import { ThemeContext } from 'styled-components/native';
+import { MainContainer, SignUpContainer } from './styles';
 
 import core from '~/core/index';
-import { metrics, validators } from '~/helpers';
+import { validators } from '~/helpers';
 
 import Header from '~/components/Header';
 import Input from '~/components/Input';
@@ -159,21 +160,5 @@ const SignUp: React.FC = () => {
     </>
   );
 };
-
-const MainContainer = styled.View<any>`
-  background-color: ${(props) => props.theme.background};
-  flex: 1;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const SignUpContainer = styled.View<any>`
-  margin-top: ${metrics.double_padding}px;
-  background-color: ${(props) => props.theme.input_background};
-  padding-horizontal: ${metrics.padding}px;
-  padding-top: ${metrics.padding}px;
-  padding-bottom: ${metrics.double_padding}px;
-  border-radius: 25px;
-`;
 
 export default SignUp;

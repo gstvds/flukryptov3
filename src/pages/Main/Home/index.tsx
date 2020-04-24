@@ -4,13 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 
 import core from '~/core';
 
-import styled, { ThemeContext }  from 'styled-components/native';
-import { colors, metrics, fonts } from '~/helpers';
+import { ThemeContext }  from 'styled-components/native';
+import { CryptoView, MainContainer, Loading, ScreenTitle, TitleContainer } from './styles';
 
 import CryptoCard from '~/components/CryptoCard';
 import Header from '~/components/Header';
 
-import { Coin } from 'core/interfaces';
+import { Coin } from 'core/core.interfaces';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const Home = () => {
@@ -58,8 +58,7 @@ const Home = () => {
   };
 
   const handleLogout = async () => {
-    await core.routes.logout();
-    navigation.navigate('Welcome');
+    await core.routes.logout(navigation.navigate);
   }
 
   return (
@@ -133,35 +132,5 @@ const Home = () => {
     </>
   ));
 };
-
-const MainContainer = styled.View<any>`
-  background-color: ${props => props.theme.background};
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Loading = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ScreenTitle = styled.Text<any>`
-  font-family: ${fonts.quicksand_bold};
-  font-size: 22px;
-  color: ${props => props.theme.title};
-`;
-
-const TitleContainer = styled.View<any>`
-  background-color: ${props => props.theme.background};
-  height: ${metrics.screen_width / 5 - metrics.padding}px;
-  padding-horizontal: ${metrics.double_padding}px;
-  padding-top: ${metrics.double_padding}px;
-`;
-
-const CryptoView = styled.View`
-  width: 100%;
-`;
 
 export default Home;

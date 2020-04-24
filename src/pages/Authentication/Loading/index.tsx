@@ -5,7 +5,8 @@ import * as Animatable from 'react-native-animatable';
 import LightLogo from '~/assets/light/logo.png';
 import DarkLogo from '~/assets/dark/logo.png';
 
-import styled, { ThemeContext } from 'styled-components/native';
+import { ThemeContext } from 'styled-components';
+import { Logo, MainContainer } from './styles';
 
 import core from '~/core';
 import { usePulse } from '~/../pulse/dist';
@@ -41,26 +42,5 @@ const Loading = () => {
     </MainContainer>
   );
 };
-
-const MainContainer = styled.View<any>`
-  align-items: center;
-  flex: 1;
-  padding-horizontal: 20px;
-  justify-content: space-around;
-`;
-
-const LogoContainer = styled.View<any>`
-  width: 200px;
-  height: 200px;
-  justify-content: center;
-  align-items: center;
-  background-color: ${(props) => props.theme.background};
-`;
-
-const Logo = styled.Image`
-  resize-mode: contain;
-  width: 200px;
-  height: 200px;
-`;
 
 export default Loading;

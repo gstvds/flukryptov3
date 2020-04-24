@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import styled, { ThemeContext } from 'styled-components/native';
+import { ThemeContext } from 'styled-components/native';
+import { LoginContainer, MainContainer } from './styles';
 import { metrics, validators } from '~/helpers';
 
 import Header from '~/components/Header';
@@ -124,18 +125,5 @@ const Login: React.FC = () => {
     </>
   );
 };
-
-const MainContainer = styled.View<any>`
-  background-color: ${(props) => props.theme.background};
-  flex: 1;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const LoginContainer = styled.View<any>`
-  margin-top: ${metrics.double_padding}px;
-  background-color: ${(props) => props.theme.input_background};
-  border-radius: 20px;
-`;
 
 export default Login;

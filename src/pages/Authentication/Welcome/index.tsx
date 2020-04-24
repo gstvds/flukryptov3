@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View } from 'react-native';
-import styled, { ThemeContext } from 'styled-components/native';
+import { ThemeContext } from 'styled-components/native';
+import { Logo, MainContainer, LogoContainer } from './styles';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -36,26 +37,5 @@ const Welcome = () => {
     </MainContainer>
   );
 };
-
-const MainContainer = styled.View<any>`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.theme.background};
-`;
-
-const LogoContainer = styled.View<any>`
-  width: 200px;
-  height: 200px;
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.theme.background};
-`;
-
-const Logo = styled.Image`
-  resize-mode: contain;
-  width: 100%;
-  height: 100%;
-`;
 
 export default Welcome;
