@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDirs": [
+      "./.credentials",
+      "./src"
+    ],
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "typeRoots": [
+      "node_modules/@types"
+      ],
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true
+      // "paths": {}
+  },
+  "include": ["src"]
+}
