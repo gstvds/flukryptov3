@@ -29,7 +29,7 @@
     "react-native-screens": "^2.4.0",
     "react-native-vector-icons": "^6.6.0",
     "styled-components": "^5.0.1",
-    "pulse-framework": "file:./pulse"
+    "pulse-framework": "file:../pulse"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
