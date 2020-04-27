@@ -1,6 +1,9 @@
 export interface Request {
-  query: {
+  body: {
     page: string;
+    auth: {
+      uid: string;
+    }
   };
 }
 

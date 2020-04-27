@@ -4,6 +4,6 @@ const ApiController = require('./controllers/api.controller');
 
 const routes = Router();
 
-routes.get('/getData', ApiController.index)
+routes.post('/getData', ApiController.index)
 
 export default routes;

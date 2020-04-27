@@ -1,12 +1,18 @@
 import axios from 'axios';
 import { CRYPTO_API } from '../config'
+import Logger from '../helpers/logger';
 import { Request, Response, Coin} from '../helpers/interfaces';
 
 
 const index = async (req: Request, res: Response) => {
+  const logger = new Logger('/api-controller', 'POST', req.body?.auth?.uid ?? undefined);
+  logger.log('Requisição para buscar as criptomoedas', req.body);
   try {
     let coinData: any[];
-    const { page } = req.query;
+    const { uid } = req.body.auth;
+    const { page } = req.body;
+
+    logger.log(`Requisição para buscar as criptomoedas na página ${page}`);
 
     const getData = await axios({
       baseURL: CRYPTO_API.baseURL,
